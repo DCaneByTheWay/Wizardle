@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Wizardle</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+
+<body>
+
+    <div class="banner" id="emoji-banner">
+
+        <!-- Header -->
+        <div class="header"> 
+            <h1> Wizardle </h1>
+            <!-- <span> Some text here </span> -->
+        </div>
+        
+        <div id="current-spell"></div>
+        
+        <div class="guess-container">
+            <div class="titles">
+                <span> Element </span>
+                <span> Pip<br>Cost </span>
+                <span> Accuracy </span>
+                <span> Uses<br>Shadow </span>
+                <span> Arc<br>Obtained </span>
+            </div>
+            
+            <div class="emoji-container">
+                <div class="emoji-row">
+                    <img id="emoji1" src="./assets/blacksquare.png"/>
+                    <img id="emoji2" src="./assets/blacksquare.png"/>
+                    <img id="emoji3" src="./assets/blacksquare.png"/>
+                    <img id="emoji4" src="./assets/blacksquare.png"/>
+                    <img id="emoji5" src="./assets/blacksquare.png"/>
+                </div>
+                
+                <!-- <div class="guess-names"> placeholder </div> -->
+            </div>
+
+
+            
+        </div>        
+        
+        <div id="win-info"></div>
+        <button type="button" id="random-button">Random Start</button>
+        <button type="button" id="reset-button">Reset</button>
+        <!-- <button type="button" id="reveal-button">Reveal</button> -->
+        
+        <!-- Spell Input Section -->
+        <div class="wizardle-card">
+            <form id='wizardle-form'>
+                <input id='guess-input' type='text' name='guess' autocomplete="off" placeholder="Name the Spell!"/>
+                <input id='guess-input' type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    
+    
+
+    <script type="text/javascript" src="./js/scripts.js"></script> 
+    <script type="text/javascript" src="./js/gamemodes.js"></script> 
+</body>
+
+</html>
