@@ -1,9 +1,6 @@
 // buttons
 const resetButton = document.getElementById('reset-button');
 const randomButton = document.getElementById('random-button');
-//const revealButton = document.getElementById('reveal-button');
-// temp div (to be deleted)
-const currentSpellDiv = document.getElementById('current-spell');
 // divs and emojis
 const guessContainer = document.querySelector('.guess-container');
 const emoji1 = document.getElementById('emoji1');
@@ -14,6 +11,7 @@ const emoji5 = document.getElementById('emoji5');
 const winInfo = document.getElementById('win-info');
 // input form
 const wizardleForm = document.getElementById('wizardle-form');
+const input = document.getElementById('guess-input');
 // emoji sources
 const BLANK_SRC = "./assets/blacksquare.png";
 const CHECK_SRC = "./assets/check.png";
@@ -26,23 +24,26 @@ const PUNCTUATION = "['‘’!.&]";
 const X_PIP_COST = 14;
 var currentSpell = {name: 'Default Spell', pipCost: 0};
 var spellList = [];
+var namesList = [];
 
 // game vars
 let numOfGuesses = 0;
 
-function roll(event) {
+function reroll(event) {
 
     if (currentSpell.name == 'Default Spell') {
         setupGame();
     }
 
+    // alert user if game is in specific state, then return and dont reset
+    if (winInfo.textContent.includes('Unlucky!')) {
+        window.alert("The game is not over yet!\nEven though all characteristics match, the spell is not correct.\nFinish out the game!");
+        return;
+    }
+
     numOfGuesses = 0;
     currentSpell = getRandomSpell();
     winInfo.textContent = '';
-    
-    if (currentSpellDiv.textContent != '') {
-        currentSpellDiv.textContent = currentSpell.name;
-    }
 
     // reveal randomstart button if hidden
     if (randomButton.hidden) randomButton.hidden = false;
@@ -172,6 +173,8 @@ function editFirstRow(guessedSpell) {
 /** Adds guess to list if available */
 function addGuess(event) {
     event.preventDefault();
+
+    clearNames()
     
     if (currentSpell.name == 'Default Spell') {
         setupGame();
@@ -181,7 +184,9 @@ function addGuess(event) {
     const guessedSpell = getSpellFromName(guess);
     
     // Nothing happens if spell does not exist
-    if (guessedSpell.name == 'Default Spell') return;
+    if (guessedSpell.name == 'Default Spell') {
+        return;
+    }
     
     // hide randomstart button if not hidden
     if (!randomButton.hidden) randomButton.hidden = true;
@@ -251,6 +256,106 @@ function addGuess(event) {
     wizardleForm.guess.value = '';
 }
 
+// autocomplete on input form
+input.addEventListener("keyup", (e) => {
+
+    // initialze namesList if first entry
+    if (namesList.length == 0) {
+        setupNamesList();
+    }
+
+    // clear anything in list
+    clearNames()
+
+    for (let name of namesList) {
+
+        if (startsWithIgnorePunct(name, input.value) &&
+        input.value != '') {
+            // li element
+            let listItem = document.createElement('li');
+
+            // common class name
+            listItem.classList.add('list-items');
+            listItem.style.cursor = 'pointer';
+            listItem.setAttribute('onclick', `displayNames('${name}')`);
+
+            // bolding matched letters
+            // accounting for punctuation
+            let position = getPosWithPunct(name, input.value);
+            let word = `<b>${name.substr(0, position)}</b>`;
+            word += name.substr(position);
+
+            // display word in list
+            listItem.innerHTML = word;
+            document.querySelector('.list').appendChild(listItem);
+        }
+    }
+});
+
+/** js startsWith() function but it ignores these punctuation */
+function startsWithIgnorePunct(str, val) {
+    str = str.replace(/['‘’!.&]/g, '').toLowerCase();
+    val = val.replace(/['‘’!.&]/g, '').toLowerCase();
+    return str.startsWith(val);
+}
+
+/* returns position of end of partialString compared to fullString ignoring punctuation
+
+   Ex: (Dr. Von's Monster) (dr vons mo) -> returns 12 as the string 'dr vons mo' has 
+   a length of 10 and there are 2 punctuation in the fullString at that point, (. and ')
+*/
+function getPosWithPunct(fullString, partialString) {
+    fullString = fullString.toLowerCase()
+    partialString = partialString.toLowerCase()
+
+    let punctCount = 0;
+    let fCursor = 0
+
+    for (let pCursor = 0; pCursor < fullString.length; pCursor++) {
+        if (partialString[pCursor] == undefined) break;
+        if (fullString[fCursor] != partialString[pCursor]) {
+            punctCount++;
+            fCursor++;
+        }
+        fCursor++;
+    }
+
+    return punctCount + partialString.length;
+}
+
+// display names in list
+function displayNames(value) {
+    input.value = value;
+}
+
+// remove all names in list
+function clearNames() {
+    // clears auto fill
+    let items = document.querySelectorAll('.list-items');
+    items.forEach((item) => {
+        item.remove();
+    });
+}
+
+function setupNamesList() {
+
+    if (currentSpell.name == 'Default Spell') {
+        setupGame();
+    }
+
+    for (let spell of spellList) {
+        namesList.push(spell.name);
+    }
+    namesList.sort();
+}
+
+// returns true if spell names are equal ignoring caps and punctuation
+function spellNamesEqual(name1, name2) {
+    name1 = name1.replace(/['‘’!.&]/g, '').toLowerCase();
+    name2 = name2.replace(/['‘’!.&]/g, '').toLowerCase();
+    return (name1 == name2)
+}
+
 function getSpellFromName(name) {
 
     // get random spell
@@ -258,19 +363,16 @@ function getSpellFromName(name) {
         return getRandomSpell();
     }*/
 
-    // spell name removing punctuation
-    const givenName = name.replace(/['‘’!.&]/g,'');
-
     if (spellList.length == 0) {
         setupGame();
     }
 
     for (const spell of spellList) {
         // current spell name from list removing punctuation
-        let currentSpellName = spell.name.replace(/['‘’!.&]/g, '');
+        let currentSpellName = spell.name;
 
         // return spell if in list
-        if (currentSpellName.toLowerCase() == givenName.toLowerCase())
+        if (spellNamesEqual(name, currentSpellName))
             return spell;
     }
     // return default spell if spell name doesn't exist
@@ -302,11 +404,6 @@ function checkwin(img1, img2, img3, img4, img5, guessedSpell) {
     }
 }
 
-function toggleAnswer(event) {
-    currentSpellDiv.textContent = currentSpellDiv.textContent == '' ? currentSpell.name : '';
-}
-
-resetButton.onclick = roll;
+resetButton.onclick = reroll;
 randomButton.onclick = randomStart;
-//revealButton.onclick = toggleAnswer;
 wizardleForm.onsubmit = addGuess;

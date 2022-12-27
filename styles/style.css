@@ -98,3 +98,23 @@ html {
     font-size: 22px;
     border-radius: 3px;
 }
+
+ul {
+    list-style: none;
+}
+
+.list {
+    width: 290px;
+    background-color: #ffffff;
+    border-radius: 0 0 5px 5px;
+    margin: 0;
+    padding-left: 0;
+}
+
+.list-items {
+    padding: 10px 5px;
+}
+
+.list-items:hover {
+    background-color: #dddddd;
+}
