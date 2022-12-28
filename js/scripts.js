@@ -277,7 +277,7 @@ input.addEventListener("keyup", (e) => {
             // common class name
             listItem.classList.add('list-items');
             listItem.style.cursor = 'pointer';
-            listItem.setAttribute('onclick', `displayNames('${name}')`);
+            listItem.setAttribute('onclick', `displayName("${name}")`);
 
             // bolding matched letters
             // accounting for punctuation
@@ -323,8 +323,8 @@ function getPosWithPunct(fullString, partialString) {
     return punctCount + partialString.length;
 }
 
-// display names in list
-function displayNames(value) {
+// update input field value
+function displayName(value) {
     input.value = value;
 }
 
