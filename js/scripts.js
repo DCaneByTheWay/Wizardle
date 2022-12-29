@@ -326,6 +326,7 @@ function getPosWithPunct(fullString, partialString) {
 // update input field value
 function displayName(value) {
     input.value = value;
+    input.focus();
 }
 
 // remove all names in list
