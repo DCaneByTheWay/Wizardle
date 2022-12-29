@@ -11,7 +11,7 @@ Try to guess the hidden spell based on the characteristics of other spells.
 3. Continue making guesses until the hidden spell has been found.
 
 ## Spell Characteristics
-**More in-depth explanations beyond this section** *
+<ins>**More in-depth explanations beyond this section**</ins>
 
 ### Element
 Hidden spell element matches guessed spell element: ✅<br />
