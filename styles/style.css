@@ -1,15 +1,20 @@
+:root {
+    --titleGap: 30px;
+    --containerWidth: 510px;
+    --imgHeight: 143px;
+    --imgWidth: 94px;
+}
+
 html {
     display: flex;
     justify-content: center;
     font-size: 16px;
     font-family: "Arial", sans-serif;
-    /* background-color: #E1C9A2; */
-    /* background-color: #424eb6; */
     background-color: #c9b89c;
 }
 
 .banner {
-    display: flex;
+    display: flex;  
     flex-direction: column;
     text-align: center;
     align-items: center;
@@ -17,10 +22,6 @@ html {
     width: 415px;
     margin: 0px;
     justify-content: center;
-    /* height: 100vh;
-    width: 500;
-    justify-content: center;
-    background-color: #c9b89c; */
 }
 
 .header {
@@ -29,14 +30,28 @@ html {
     flex-direction: column;
 }
 
+footer {
+    text-align: center;
+    padding: 3px;
+    background-color: DarkSalmon;
+    color: white;
+    display: block;
+  }
+
+#wizardle-link {
+    position: absolute;
+
+}
+
 .titles {
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: var(--titleGap);
     padding: 10px 0px 10px 0px;
     color: black;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 .titles span {
@@ -55,19 +70,19 @@ html {
     flex-wrap: wrap;
     flex-shrink: 0;
     overflow: hidden;
-    width: 415px;
+    width: var(--containerWidth);
     -webkit-filter: drop-shadow(1px 1px 1px #222 );
     filter: drop-shadow(1px 1px 1px #222);
 }
 
 #emoji1,#emoji2,#emoji3,#emoji4,#emoji5,.emoji-img {
-    height: 75px;
-    width: 75px;
+    height: var(--imgHeight);
+    width: var(--imgWidth);
 }
 
 .emoji-container {
     display: flex;
-    width: 415px;
+    width: var(--containerWidth);
     justify-content: flex-end;
     align-items: center;
 }
@@ -78,6 +93,7 @@ html {
     position: relative;
     left: 20px;
     flex: 1;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 .category-titles {

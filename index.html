@@ -7,38 +7,42 @@
 </head>
 
 <body>
-
     <div class="banner" id="emoji-banner">
-
+        
         <!-- Header -->
         <div class="header"> 
             <h1> Wizardle </h1>
         </div>
+
+        <div>
+            <a href="https://github.com/DCaneByTheWay/Wizardle/">
+                <img src="./assets/compassoff.png" id="compass" height="93px" width="120px">
+            </a>
+            <br>Game Instructions
+        </div>
         
+        <button type="button" id="emoji-button">Toggle Emojis</button>
+
         <div id="current-spell"></div>
         
         <div class="guess-container">
             <div class="titles">
-                <span> Element </span>
-                <span> Pip<br>Cost </span>
-                <span> Accuracy </span>
-                <span> Uses<br>Shadow </span>
-                <span> Arc<br>Obtained </span>
+                <span> <b>Element</b> </span>
+                <span> <b>Pip<br>Cost</b> </span>
+                <span> <b>Accuracy</b> </span>
+                <span> <b>Uses<br>Shadow</b> </span>
+                <span> <b>Arc<br>Obtained</b> </span>
             </div>
             
             <div class="emoji-container">
                 <div class="emoji-row">
-                    <img id="emoji1" src="./assets/blacksquare.png"/>
-                    <img id="emoji2" src="./assets/blacksquare.png"/>
-                    <img id="emoji3" src="./assets/blacksquare.png"/>
-                    <img id="emoji4" src="./assets/blacksquare.png"/>
-                    <img id="emoji5" src="./assets/blacksquare.png"/>
+                    <img id="emoji1" src="./assets/cards/blacksquare.png"/>
+                    <img id="emoji2" src="./assets/cards/blacksquare.png"/>
+                    <img id="emoji3" src="./assets/cards/blacksquare.png"/>
+                    <img id="emoji4" src="./assets/cards/blacksquare.png"/>
+                    <img id="emoji5" src="./assets/cards/blacksquare.png"/>
                 </div>
-
             </div>
-
-
-            
         </div>        
         
         <div id="win-info"></div>
@@ -56,8 +60,6 @@
             </form>
         </div>
     </div>
-    
-    
 
     <script type="text/javascript" src="./js/scripts.js"></script> 
     <script type="text/javascript" src="./js/gamemodes.js"></script> 

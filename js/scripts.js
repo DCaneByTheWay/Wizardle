@@ -1,6 +1,7 @@
 // buttons
 const resetButton = document.getElementById('reset-button');
 const randomButton = document.getElementById('random-button');
+const emojiButton = document.getElementById('emoji-button');
 // divs and emojis
 const guessContainer = document.querySelector('.guess-container');
 const emoji1 = document.getElementById('emoji1');
@@ -9,27 +10,32 @@ const emoji3 = document.getElementById('emoji3');
 const emoji4 = document.getElementById('emoji4');
 const emoji5 = document.getElementById('emoji5');
 const winInfo = document.getElementById('win-info');
+const compass = document.getElementById('compass');
 // input form
 const wizardleForm = document.getElementById('wizardle-form');
 const input = document.getElementById('guess-input');
 // emoji sources
-const BLANK_SRC = "./assets/blacksquare.png";
-const CHECK_SRC = "./assets/check.png";
-const X_SRC = "./assets/x.png";
-const UP_SRC = "./assets/uparrow.png";
-const DOWN_SRC = "./assets/downarrow.png";
+let BLANK_SRC = "./assets/cards/blacksquare.png";
+let CHECK_SRC = "./assets/cards/check.png";
+let X_SRC = "./assets/cards/x.png";
+let UP_SRC = "./assets/cards/uparrow.png";
+let DOWN_SRC = "./assets/cards/downarrow.png";
+
+// boolean to represent whether src is emoji or card
+let srcIsEmoji = false;
+// punctuation to filter
 const PUNCTUATION = "['‘’!.&]";
 
 // X pip spells have a specific pip cost so theyre always higher
 const X_PIP_COST = 14;
-var currentSpell = {name: 'Default Spell', pipCost: 0};
-var spellList = [];
-var namesList = [];
+let spellList = [];
+let namesList = [];
 
 // game vars
 let numOfGuesses = 0;
+let currentSpell = {name: 'Default Spell', pipCost: 0};
 
-function reroll(event) {
+function reset(event) {
 
     if (currentSpell.name == 'Default Spell') {
         setupGame();
@@ -41,6 +47,7 @@ function reroll(event) {
         return;
     }
 
+    // reset game vars
     numOfGuesses = 0;
     currentSpell = getRandomSpell();
     winInfo.textContent = '';
@@ -254,6 +261,8 @@ function addGuess(event) {
     checkwin(elementImg, pipCostImg, accuracyImg, usesShadowImg, arcObtainedImg, guessedSpell);
     
     wizardleForm.guess.value = '';
+
+    window.scrollBy(0, (srcIsEmoji ? 75 : 114)+50);
 }
 
 // autocomplete on input form
@@ -277,7 +286,7 @@ input.addEventListener("keyup", (e) => {
             // common class name
             listItem.classList.add('list-items');
             listItem.style.cursor = 'pointer';
-            listItem.setAttribute('onclick', `displayName("${name}")`);
+            listItem.setAttribute('onclick', `insertNameInField("${name}")`);
 
             // bolding matched letters
             // accounting for punctuation
@@ -299,7 +308,7 @@ function startsWithIgnorePunct(str, val) {
     return str.startsWith(val);
 }
 
-/* returns position of end of partialString compared to fullString ignoring punctuation
+/** returns position of end of partialString compared to fullString ignoring punctuation
 
    Ex: (Dr. Von's Monster) (dr vons mo) -> returns 12 as the string 'dr vons mo' has 
    a length of 10 and there are 2 punctuation in the fullString at that point, (. and ')
@@ -324,7 +333,7 @@ function getPosWithPunct(fullString, partialString) {
 }
 
 // update input field value
-function displayName(value) {
+function insertNameInField(value) {
     input.value = value;
     input.focus();
 }
@@ -358,11 +367,6 @@ function spellNamesEqual(name1, name2) {
 }
 
 function getSpellFromName(name) {
-
-    // get random spell
-    /*if (name == "random") {
-        return getRandomSpell();
-    }*/
 
     if (spellList.length == 0) {
         setupGame();
@@ -405,6 +409,88 @@ function checkwin(img1, img2, img3, img4, img5, guessedSpell) {
     }
 }
 
-resetButton.onclick = reroll;
+function toggleEmojis() {
+
+    // vars for both emoji and card css properties
+    const bigTitleGap = '30px';
+    const smallTitleGap = '10px';
+    const bigContainerWidth = '510px';
+    const smallContainerWidth = '415px';
+    const bigImgHeight = '143px';
+    const bigImgWidth = '94px';
+    const smallImgHeight = '75px';
+    const smallImgWidth = '75px';
+
+    // change sources
+    swapSources()
+
+    // get root to access and modify data
+    const root = document.querySelector(':root');
+
+    // if going from emoji to card
+    if (srcIsEmoji) {
+        root.style.setProperty('--titleGap', bigTitleGap);
+        root.style.setProperty('--containerWidth', bigContainerWidth);
+        root.style.setProperty('--imgHeight', bigImgHeight);
+        root.style.setProperty('--imgWidth', bigImgWidth);
+    }
+    else { // if going from card to emoji
+        root.style.setProperty('--titleGap', smallTitleGap);
+        root.style.setProperty('--containerWidth', smallContainerWidth);
+        root.style.setProperty('--imgHeight', smallImgHeight);
+        root.style.setProperty('--imgWidth', smallImgWidth);
+    }
+
+    // toggle boolean
+    srcIsEmoji = !srcIsEmoji;
+}
+
+function swapSources() {
+
+    // change sources
+    if (CHECK_SRC.includes('cards')) {
+        BLANK_SRC = BLANK_SRC.replace('cards', 'emojis');
+        CHECK_SRC = CHECK_SRC.replace('cards', 'emojis');
+        X_SRC = X_SRC.replace('cards', 'emojis');
+        UP_SRC = UP_SRC.replace('cards', 'emojis');
+        DOWN_SRC = DOWN_SRC.replace('cards', 'emojis');
+    }
+    else {
+        BLANK_SRC = BLANK_SRC.replace('emojis', 'cards');
+        CHECK_SRC = CHECK_SRC.replace('emojis', 'cards');
+        X_SRC = X_SRC.replace('emojis', 'cards');
+        UP_SRC = UP_SRC.replace('emojis', 'cards');
+        DOWN_SRC = DOWN_SRC.replace('emojis', 'cards');
+    }
+
+    // update sources of existing imgs
+    for (const child of guessContainer.childNodes) {
+        if (child.className == 'emoji-container') {
+            for (const child2 of child.childNodes) {
+                if (child2.className == 'emoji-row') {
+                    for (const child3 of child2.childNodes) {
+                        if (child3.src == undefined) continue;
+                        if (srcIsEmoji) {
+                            child3.src = child3.src.replace('emojis', 'cards');
+                        }
+                        else {
+                            child3.src = child3.src.replace('cards', 'emojis');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// toggles compass from off to on on mouse enter/exit
+function toggleCompass() {
+    compass.src = compass.src.includes('compasson') ? "./assets/compassoff.png" : "./assets/compasson.png";
+}
+
+resetButton.onclick = reset;
 randomButton.onclick = randomStart;
+emojiButton.onclick = toggleEmojis;
 wizardleForm.onsubmit = addGuess;
+compass.onmouseenter = toggleCompass;
+compass.onmouseleave = toggleCompass;
