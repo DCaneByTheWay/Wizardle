@@ -446,7 +446,9 @@ function toggleEmojis() {
 }
 
 function swapSources() {
-
+    
+    // update sources of future imgs
+    
     // change sources
     if (CHECK_SRC.includes('cards')) {
         BLANK_SRC = BLANK_SRC.replace('cards', 'emojis');
@@ -462,25 +464,21 @@ function swapSources() {
         UP_SRC = UP_SRC.replace('emojis', 'cards');
         DOWN_SRC = DOWN_SRC.replace('emojis', 'cards');
     }
-
+    
     // update sources of existing imgs
-    for (const child of guessContainer.childNodes) {
-        if (child.className == 'emoji-container') {
-            for (const child2 of child.childNodes) {
-                if (child2.className == 'emoji-row') {
-                    for (const child3 of child2.childNodes) {
-                        if (child3.src == undefined) continue;
-                        if (srcIsEmoji) {
-                            child3.src = child3.src.replace('emojis', 'cards');
-                        }
-                        else {
-                            child3.src = child3.src.replace('cards', 'emojis');
-                        }
-                    }
-                }
-            }
+
+    // grab all emojis
+    let emojis = document.querySelectorAll('.emoji-img');
+    
+    // change all emojis sources
+    emojis.forEach(img => {
+        if (srcIsEmoji) {
+            img.src = img.src.replace('emojis', 'cards');
         }
-    }
+        else {
+            img.src = img.src.replace('cards', 'emojis');
+        }
+    });
 }
 
 // toggles compass from off to on on mouse enter/exit
