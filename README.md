@@ -10,7 +10,7 @@ Try to guess the hidden spell based on the characteristics of other spells.
 2. From here, we get our first information, and below is the legend for each image we may see.
 3. Continue making guesses until the hidden spell has been found.
 
-## Spell Characteristics
+## Spell Characteristics (And What The Emojis/Symbols Mean)
 <ins>**More in-depth explanations beyond this section**</ins>
 
 ### Element
