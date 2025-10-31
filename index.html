@@ -59,10 +59,20 @@
                 <ul class="list"></ul>
             </form>
         </div>
-    </div>
 
-    <script type="text/javascript" src="./js/scripts.js"></script> 
-    <script type="text/javascript" src="./js/gamemodes.js"></script> 
+        <div class="gamemode-selector">
+                <label for="gamemode-select"><b>Game Mode:</b></label>
+                <select id="gamemode-select">
+                    <!-- Options will be populated dynamically by JavaScript -->
+                </select>
+        </div>
+
+
+    </div>
+    
+    <!-- Load gamemodes.js first so the spell arrays are available -->
+    <script type="text/javascript" src="./js/gamemodes.js"></script>
+    <script type="text/javascript" src="./js/scripts.js"></script>
 </body>
 
 </html>

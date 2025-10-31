@@ -1,4 +1,7 @@
-//Name PipCost Element Accuracy IsShad ArcObtained
+// Game Modes Spell Lists
+// Format: 'Name PipCost Element Accuracy IsShad ArcObtained'
+// Each game mode is a separate array of spell strings
+// To add a new game mode, create a new array and register it in scripts.js GAME_MODES
 
 var MainGame = [
     'Heck Hound X Fire 75 no 1',
@@ -110,4 +113,67 @@ var MainGame = [
     'Nested Fury 6 Balance 80 yes 3',
     'Sand Wurm 4 Balance 80 yes 3',
     'Scion of Balance 11 Balance 80 no 3'
+]
+
+var Arc1Game = [
+    'Heck Hound X Fire 75 no 1',
+    'Fire Cat 1 Fire 75 no 1',
+    'Fire Elf 2 Fire 75 no 1',
+    'Sunbird 3 Fire 75 no 1',
+    'Meteor Strike 4 Fire 75 no 1',
+    'Immolate 4 Fire 75 no 1',
+    'Phoenix 5 Fire 75 no 1',
+    'Scald 5 Fire 75 no 1',
+    'Helephant 6 Fire 75 no 1',
+    'Fire Dragon 7 Fire 75 no 1',
+    'Frost Beetle 1 Ice 80 no 1',
+    'Snow Serpent 2 Ice 80 no 1',
+    'Evil Snowman 3 Ice 80 no 1',
+    'Ice Wyvern 4 Ice 80 no 1',
+    'Blizzard 4 Ice 80 no 1',
+    'Frostbite 5 Ice 80 no 1',
+    'Colossus 6 Ice 80 no 1',
+    'Frost Giant 7 Ice 80 no 1',
+    'Tempest X Storm 70 no 1',
+    'Thunder Snake 1 Storm 70 no 1',
+    'Lightning Bats 2 Storm 70 no 1',
+    'Storm Shark 3 Storm 70 no 1',
+    'Kraken 4 Storm 70 no 1',
+    'Stormzilla 5 Storm 70 no 1',
+    'Triton 6 Storm 70 no 1',
+    'Storm Lord 7 Storm 70 no 1',
+    'Dryad X Life 90 no 1',
+    'Imp 1 Life 90 no 1',
+    'Sprite 1 Life 90 no 1',
+    'Leprechaun 2 Life 90 no 1',
+    'Fairy 2 Life 90 no 1',
+    'Nature\'s Wrath 3 Life 90 no 1',
+    'Unicorn 3 Life 90 no 1',
+    'Seraph 4 Life 90 no 1',
+    'Satyr 4 Life 90 no 1',
+    'Regenerate 5 Life 90 no 1',
+    'Centaur 6 Life 90 no 1',
+    'Forest Lord 7 Life 90 no 1',
+    'Blood Bat 1 Myth 80 no 1',
+    'Troll 2 Myth 80 no 1',
+    'Cyclops 3 Myth 80 no 1',
+    'Humongofrog 4 Myth 80 no 1',
+    'Minotaur 5 Myth 80 no 1',
+    'Earthquake 6 Myth 80 no 1',
+    'Orthrus 7 Myth 80 no 1',
+    'Dark Sprite 1 Death 85 no 1',
+    'Ghoul 2 Death 85 no 1',
+    'Banshee 3 Death 85 no 1',
+    'Vampire 4 Death 85 no 1',
+    'Skeletal Pirate 5 Death 85 no 1',
+    'Wraith 6 Death 85 no 1',
+    'Scarecrow 7 Death 85 no 1',
+    'Judgement X Balance 85 no 1',
+    'Scarab 1 Balance 85 no 1',
+    'Scorpion 2 Balance 85 no 1',
+    'Locust Swarm 3 Balance 85 no 1',
+    'Sandstorm 4 Balance 85 no 1',
+    'Spectral Blast 4 Balance 85 no 1',
+    'Hydra 6 Balance 85 no 1',
+    'Power Nova 7 Balance 85 no 1'
 ]

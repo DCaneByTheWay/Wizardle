@@ -2,6 +2,7 @@
 const resetButton = document.getElementById('reset-button');
 const randomButton = document.getElementById('random-button');
 const emojiButton = document.getElementById('emoji-button');
+const gamemodeSelect = document.getElementById('gamemode-select');
 // divs and emojis
 const guessContainer = document.querySelector('.guess-container');
 const emoji1 = document.getElementById('emoji1');
@@ -34,6 +35,31 @@ let namesList = [];
 // game vars
 let numOfGuesses = 0;
 let currentSpell = {name: 'Default Spell', pipCost: 0};
+let currentGameMode = 'main'; // Track current game mode
+
+// Game mode configuration
+// To add a new game mode:
+// 1. Add the spell array to gamemodes.js (e.g., var Arc2Game = [...])
+// 2. Add an entry here with a unique key, display name, and data function
+const GAME_MODES = {
+    'main': {
+        name: 'Main Game',
+        data: () => MainGame
+    },
+    'arc1': {
+        name: '1 - 7 Pip Spells',
+        data: () => Arc1Game
+    }
+    // Example for future modes:
+    // 'arc2': {
+    //     name: 'Arc 2',
+    //     data: () => Arc2Game
+    // },
+    // 'shadow': {
+    //     name: 'Shadow Spells Only',
+    //     data: () => ShadowSpellsGame
+    // }
+};
 
 function reset(event) {
 
@@ -86,9 +112,21 @@ function getPipValue(value) {
     return parseInt((value == 'X') ? X_PIP_COST : value);
 }
 
-/** Sets up game */
+/** Sets up game based on selected game mode */
 function setupGame() {
-    MainGame.forEach(insertSpell);
+    // Clear existing spell list
+    spellList = [];
+    namesList = [];
+    
+    // Load spells based on current game mode
+    const gameMode = GAME_MODES[currentGameMode];
+    if (gameMode && gameMode.data) {
+        gameMode.data().forEach(insertSpell);
+    } else {
+        // Default to MainGame if mode not found
+        console.warn(`Game mode '${currentGameMode}' not found, defaulting to Main Game`);
+        MainGame.forEach(insertSpell);
+    }
 
     currentSpell = getRandomSpell();
 }
@@ -486,6 +524,50 @@ function toggleCompass() {
     compass.src = compass.src.includes('compasson') ? "./assets/compassoff.png" : "./assets/compasson.png";
 }
 
+/** Populate game mode dropdown with available modes */
+function populateGameModes() {
+    gamemodeSelect.innerHTML = ''; // Clear existing options
+    
+    for (const [key, mode] of Object.entries(GAME_MODES)) {
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = mode.name;
+        
+        // Set default selection
+        if (key === currentGameMode) {
+            option.selected = true;
+        }
+        
+        gamemodeSelect.appendChild(option);
+    }
+}
+
+/** Handle game mode change */
+function changeGameMode() {
+    const selectedMode = gamemodeSelect.value;
+    
+    // Check if the selected mode exists
+    if (!GAME_MODES[selectedMode]) {
+        console.error(`Invalid game mode: ${selectedMode}`);
+        return;
+    }
+    
+    currentGameMode = selectedMode;
+    reset(); // Reset the game when mode changes
+    setupGame(); // Reload spell list for new mode
+}
+
+/** Initialize the game on page load */
+function initGame() {
+    populateGameModes();
+    setupGame();
+}
+
+// Initialize game when page loads
+initGame();
+
+// Event listeners
+gamemodeSelect.onchange = changeGameMode;
 resetButton.onclick = reset;
 randomButton.onclick = randomStart;
 emojiButton.onclick = toggleEmojis;
