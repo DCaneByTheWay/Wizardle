@@ -94,6 +94,57 @@ footer {
     left: 20px;
     flex: 1;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
+    cursor: default;
+}
+
+/* Custom tooltip styling for spell names */
+.guess-names {
+    position: relative;
+}
+
+.guess-names:hover {
+    color: #5a4a3a;
+    text-decoration: underline;
+}
+
+/* Custom tooltip */
+.guess-names .tooltip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1000;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 21px;
+    white-space: pre-line;
+    left: calc(100% + 90px);
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    font-family: "Arial", sans-serif;
+    line-height: 1.6;
+    min-width: 225px;
+}
+
+.guess-names:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Tooltip arrow */
+.guess-names .tooltip::before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 7.5px solid transparent;
+    border-right-color: #333;
 }
 
 .category-titles {
