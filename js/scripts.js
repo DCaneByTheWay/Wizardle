@@ -200,6 +200,12 @@ function editFirstRow(guessedSpell) {
 
     // give guessName div the name of guess
     guessName.textContent = guessedSpell.name;
+    
+    // Create custom tooltip with spell details
+    const tooltip = document.createElement('span');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = `Element: ${guessedSpell.element}\nPip Cost: ${guessedSpell.pipCost}\nAccuracy: ${guessedSpell.accuracy}\nShadow: ${guessedSpell.isShad}\nArc: ${guessedSpell.arcObtained}`;
+    guessName.appendChild(tooltip);
 
     emoji1.src = (currentSpell.element == guessedSpell.element) ? CHECK_SRC : X_SRC;
     emoji2.src = (currentSpell.pipCost < guessedSpell.pipCost) ? DOWN_SRC : (currentSpell.pipCost == guessedSpell.pipCost) ? CHECK_SRC : UP_SRC;
@@ -278,6 +284,12 @@ function addGuess(event) {
     
     // give guessName div the name of guess
     guessName.textContent = guessedSpell.name;
+    
+    // Create custom tooltip with spell details
+    const tooltip = document.createElement('span');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = `Element: ${guessedSpell.element}\nPip Cost: ${guessedSpell.pipCost}\nAccuracy: ${guessedSpell.accuracy}\nShadow: ${guessedSpell.isShad}\nArc: ${guessedSpell.arcObtained}`;
+    guessName.appendChild(tooltip);
     
     // add imgs to emoji container
     emojiRow.appendChild(elementImg);
