@@ -204,7 +204,7 @@ function editFirstRow(guessedSpell) {
     // Create custom tooltip with spell details
     const tooltip = document.createElement('span');
     tooltip.classList.add('tooltip');
-    tooltip.textContent = `Element: ${guessedSpell.element}\nPip Cost: ${guessedSpell.pipCost}\nAccuracy: ${guessedSpell.accuracy}\nShadow: ${guessedSpell.isShad}\nArc: ${guessedSpell.arcObtained}`;
+    tooltip.textContent = `Element: ${guessedSpell.element}\nPip Cost: ${guessedSpell.pipCost != 14 ? guessedSpell.pipCost : 'X'}\nAccuracy: ${guessedSpell.accuracy}\nShadow: ${guessedSpell.isShad}\nArc: ${guessedSpell.arcObtained}`;
     guessName.appendChild(tooltip);
 
     emoji1.src = (currentSpell.element == guessedSpell.element) ? CHECK_SRC : X_SRC;
@@ -288,7 +288,7 @@ function addGuess(event) {
     // Create custom tooltip with spell details
     const tooltip = document.createElement('span');
     tooltip.classList.add('tooltip');
-    tooltip.textContent = `Element: ${guessedSpell.element}\nPip Cost: ${guessedSpell.pipCost}\nAccuracy: ${guessedSpell.accuracy}\nShadow: ${guessedSpell.isShad}\nArc: ${guessedSpell.arcObtained}`;
+    tooltip.textContent = `Element: ${guessedSpell.element}\nPip Cost: ${guessedSpell.pipCost != 14 ? guessedSpell.pipCost : 'X'}\nAccuracy: ${guessedSpell.accuracy}\nShadow: ${guessedSpell.isShad}\nArc: ${guessedSpell.arcObtained}`;
     guessName.appendChild(tooltip);
     
     // add imgs to emoji container
