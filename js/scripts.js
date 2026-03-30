@@ -46,6 +46,10 @@ const GAME_MODES = {
         name: 'Main Game',
         data: () => MainGame
     },
+    'mainNoShad': {
+        name: 'Main Game (No Shadow)',
+        data: () => MainGameNoShadow
+    },
     'arc1': {
         name: '1 - 7 Pip Spells',
         data: () => Arc1Game
